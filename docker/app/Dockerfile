@@ -1,6 +1,7 @@
 FROM php:7-fpm
 
-# ユーザーを作成(1000を適宜変更し、hostにguestを合わせる)
+# 1000を適宜変更し、hostのuidにguestのuidを合わせる
+# ホスト側でidコマンドを打って調べたuidの値にする
 ARG DOCKER_UID=1000
 ARG DOCKER_USER=docker
 ARG DOCKER_PASSWORD=docker
@@ -13,15 +14,10 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 # 各種インストール
 RUN apt-get update \
-  # pdoドライバ
   && docker-php-ext-install pdo_mysql \
-  # Laravelに必要なパッケージ
   && apt-get install -y git zip unzip \
-  # Node.js
   && apt-get install -y nodejs \
-  # Vim
   && apt-get install -y vim \
-  # sudo
   && apt-get install -y sudo
 
 # ユーザ作成
