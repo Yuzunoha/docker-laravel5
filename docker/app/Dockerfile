@@ -8,6 +8,10 @@ RUN useradd -m -u ${UID} docker
 # composerをインストール
 RUN curl -s https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
+# Node.jsをインストール
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
+
 # Laravelに必要なパッケージをインストール
 RUN apt-get update && apt-get install -y git zip unzip
 
