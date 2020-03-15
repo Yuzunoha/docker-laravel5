@@ -2,8 +2,6 @@ version: '3'
 services:
   web:
     image: nginx
-    depends_on:
-      - app
     ports:
       - "10080:80"
     volumes:
@@ -11,8 +9,6 @@ services:
       - .:/var/www/html
   app:
     build: ./docker/app
-    depends_on:
-      - db
     volumes:
       - .:/var/www/html
   db:
@@ -29,8 +25,6 @@ services:
       - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    depends_on:
-      - db
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOSTS=db
