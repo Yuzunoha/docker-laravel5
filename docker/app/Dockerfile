@@ -13,12 +13,14 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 
 # 各種インストール
 RUN apt-get update \
-  # Laravelに必要なパッケージ
-  && apt-get install -y git zip unzip \
   # pdoドライバ
   && docker-php-ext-install pdo_mysql \
+  # Laravelに必要なパッケージ
+  && apt-get install -y git zip unzip \
   # Node.js
-  && apt-get install -y nodejs
+  && apt-get install -y nodejs \
+  # Vim
+  && apt-get install -y vim
 
 # 作成したユーザーに切り替える
 USER ${UID}:${GID}
