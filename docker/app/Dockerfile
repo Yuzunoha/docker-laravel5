@@ -8,15 +8,17 @@ RUN useradd -m -u ${UID} docker
 # composerをインストール
 RUN curl -s https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
-# Node.jsをインストール
+# Node.jsの準備
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
 
-# Laravelに必要なパッケージをインストール
-RUN apt-get update && apt-get install -y git zip unzip
-
+# 各種インストール
 RUN apt-get update \
-  && docker-php-ext-install pdo_mysql
+  # Laravelに必要なパッケージ
+  && apt-get install -y git zip unzip \
+  # pdoドライバ
+  && docker-php-ext-install pdo_mysql \
+  # Node.js
+  && apt-get install -y nodejs
 
 # 作成したユーザーに切り替える
 USER ${UID}:${GID}
